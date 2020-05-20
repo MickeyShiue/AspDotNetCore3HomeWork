@@ -6,10 +6,16 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Project.DataAccess.Lib.Interface;
+using Project.DataAccess.Lib.Models;
+using Project.DataAccess.Lib.Repository;
+using Project.DataAccess.Lib.UnitOfWork;
+using Project.Service.Lib.CourseServices;
 
 namespace Project.WebApi
 {
@@ -26,6 +32,11 @@ namespace Project.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<ContosouniversityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<ICourseService, CourseService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

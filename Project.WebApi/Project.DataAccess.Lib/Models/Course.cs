@@ -23,9 +23,9 @@ namespace Project.DataAccess.Lib.Models
         [Column("DepartmentID")]
         public int DepartmentId { get; set; }
 
-        public DateTime DateModified { get; set; }
+        public DateTime? DateModified { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public bool? IsDeleted { get; set; }
 
 
         [ForeignKey(nameof(DepartmentId))]
