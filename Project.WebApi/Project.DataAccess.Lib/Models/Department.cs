@@ -27,6 +27,10 @@ namespace Project.DataAccess.Lib.Models
         [Required]
         public byte[] RowVersion { get; set; }
 
+        public DateTime DateModified { get; set; }
+
+        public bool IsDeleted { get; set; }
+
         [ForeignKey(nameof(InstructorId))]
         [InverseProperty(nameof(Person.Department))]
         public virtual Person Instructor { get; set; }

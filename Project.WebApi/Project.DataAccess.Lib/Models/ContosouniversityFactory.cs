@@ -8,7 +8,7 @@ namespace Project.DataAccess.Lib.Models
         public ContosouniversityContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ContosouniversityContext>();
-            optionsBuilder.UseSqlServer("Data Source=ContosoUniversity;Initial Catalog=ContosoUniversity;Integrated Security=True");
+            optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=ContosoUniversity;Integrated Security=True");
 
             return new ContosouniversityContext(optionsBuilder.Options);
         }
