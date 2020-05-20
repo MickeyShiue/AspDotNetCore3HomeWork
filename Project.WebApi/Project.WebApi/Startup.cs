@@ -1,21 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Project.DataAccess.Lib.Interface;
 using Project.DataAccess.Lib.Models;
 using Project.DataAccess.Lib.Repository;
 using Project.DataAccess.Lib.UnitOfWork;
 using Project.Service.Lib.CourseServices;
+using Project.Service.Lib.DepartmentService;
+using Project.Service.Lib.PersonServices;
 
 namespace Project.WebApi
 {
@@ -36,6 +31,8 @@ namespace Project.WebApi
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
             services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IPersonService, PersonService>();
 
         }
 
