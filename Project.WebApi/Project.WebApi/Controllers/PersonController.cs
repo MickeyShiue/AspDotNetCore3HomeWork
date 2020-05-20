@@ -12,8 +12,7 @@ namespace Project.WebApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class PersonController : ControllerBase
-    {
-     
+    {  
         private readonly IPersonService personService;
         private readonly IUnitOfWork unitOfWork;
 
@@ -23,14 +22,12 @@ namespace Project.WebApi.Controllers
             this.unitOfWork = unitOfWork;
         }
 
-        // GET: api/Person
         [HttpGet]
         public ActionResult<IEnumerable<Person>> GetPerson()
         {
             return personService.GetAll(r => r.IsDeleted == false || r.IsDeleted == null).ToList();
         }
-
-        // GET: api/Person/5
+       
         [HttpGet("{id}")]
         public ActionResult<Person> GetPerson(int id)
         {
@@ -87,7 +84,6 @@ namespace Project.WebApi.Controllers
             return Ok(person);
         }
 
-        // DELETE: api/Person/5
         [HttpDelete("{id}")]
         public ActionResult<Person> DeletePerson(int id)
         {

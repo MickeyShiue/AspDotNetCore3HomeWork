@@ -45,7 +45,6 @@ namespace Project.WebApi.Controllers
             return course;
         }
 
-        // PUT: api/Courses/5       
         [HttpPut("{id}")]
         public IActionResult PutCourse(int id, Course course)
         {
@@ -88,7 +87,6 @@ namespace Project.WebApi.Controllers
             return Ok(course);
         }
 
-        // DELETE: api/Course/5
         [HttpDelete("{id}")]
         public ActionResult<Course> DeleteCourse(int id)
         {

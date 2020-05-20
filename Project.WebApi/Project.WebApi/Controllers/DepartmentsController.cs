@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Project.DataAccess.Lib.Models;
-using Project.DataAccess.Lib.UnitOfWork;
 using Project.Service.Lib.DepartmentService;
 
 namespace Project.WebApi.Controllers
@@ -13,24 +12,18 @@ namespace Project.WebApi.Controllers
     public class DepartmentsController : ControllerBase
     {
         private readonly IDepartmentService departmentService;
-        private readonly IUnitOfWork unitOfWork;
-
-        public DepartmentsController(ContosouniversityContext context,
-            IDepartmentService departmentService,
-            IUnitOfWork unitOfWork)
+     
+        public DepartmentsController(IDepartmentService departmentService)
         {     
             this.departmentService = departmentService;
-            this.unitOfWork = unitOfWork;
         }
 
-        // GET: api/Departments
         [HttpGet]
         public ActionResult<IEnumerable<Department>> GetDepartment()
         {
             return this.departmentService.GetAll(r => r.IsDeleted == null || r.IsDeleted == false).ToList();
         }
-
-        // GET: api/Departments/5
+ 
         [HttpGet("{id}")]
         public ActionResult<Department> GetDepartment(int id)
         {
@@ -60,7 +53,6 @@ namespace Project.WebApi.Controllers
             return Ok(department);
         }
 
-        // DELETE: api/Departments/5
         [HttpDelete("{id}")]
         public ActionResult<Department> DeleteDepartment(int id)
         {
@@ -71,11 +63,10 @@ namespace Project.WebApi.Controllers
             }
             Department.IsDeleted = true;
 
-            this.departmentService.Update(Department);
+            this.departmentService.Delete(Department);
             return Department;
         }
-
-        // GET: api/GetDepartmentCourseCount
+    
         [HttpGet("GetDepartmentCourseCount")]
         public ActionResult<IEnumerable<VwDepartmentCourseCount>> GetDepartmentCourseCount()
         {
